@@ -13,8 +13,10 @@ namespace WiFoUI.UI.Components
 		[CategoryAttribute("Behavior"), DescriptionAttribute("Locks manual time navigation to always display the latest update.")]
 		public bool PanLock { get; set; }
 
+		[CategoryAttribute("Behavior"), DescriptionAttribute("The starting point of the data range marker.")]
 		public int MarkerStart { get; set; }
 
+		[CategoryAttribute("Behavior"), DescriptionAttribute("The ending point of the data range marker.")]
 		public int MarkerEnd { get; set; }
 
 		[CategoryAttribute("Behavior"), DescriptionAttribute("Gets or sets the visible time domain.")]

@@ -2,17 +2,28 @@
 
 namespace WiFo.Data
 {
+	/// <summary>
+	/// Represents a single status change event, which contains a timestamp and the new value of the Broadcom bcm43xx status register.
+	/// </summary>
 	public sealed class Record : IComparable
 	{
 		private uint time;
 		private uint ifs_state;
 
+		/// <summary>
+		/// Initializes a new instance of the Record with given timestamp and status.
+		/// </summary>
+		/// <param name="time">The timestamp associated with this record</param>
+		/// <param name="state">The value of the status register that this record represents</param>
 		public Record(uint time, uint state)
 		{
 			this.time = time;
 			this.ifs_state = state;
 		}
 
+		/// <summary>
+		/// Gets the timestamp associated with this record.
+		/// </summary>
 		public uint Time
 		{
 			get
@@ -21,6 +32,9 @@ namespace WiFo.Data
 			}
 		}
 
+		/// <summary>
+		/// Gets the state value (taken from the hardware status register) associated with this record.
+		/// </summary>
 		public uint State
 		{
 			get
@@ -29,6 +43,9 @@ namespace WiFo.Data
 			}
 		}
 
+		/// <summary>
+		/// Gets a value indicating whether the channel is free according to the State value.
+		/// </summary>
 		public bool IsChannelFree
 		{
 			get
