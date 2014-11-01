@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiFoBase", "WiFoBase\WiFoBase.csproj", "{F7F73189-68A5-4897-AEA9-01E800A416AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiFo", "WiFo\WiFo.csproj", "{BD8129A3-1DFD-40F0-87FE-5E183A448E14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiFoUI", "WiFoUI\WiFoUI.csproj", "{660B2CFA-A62D-4E1B-A590-272615D51E37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7F73189-68A5-4897-AEA9-01E800A416AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F73189-68A5-4897-AEA9-01E800A416AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F73189-68A5-4897-AEA9-01E800A416AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F73189-68A5-4897-AEA9-01E800A416AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD8129A3-1DFD-40F0-87FE-5E183A448E14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD8129A3-1DFD-40F0-87FE-5E183A448E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD8129A3-1DFD-40F0-87FE-5E183A448E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD8129A3-1DFD-40F0-87FE-5E183A448E14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{660B2CFA-A62D-4E1B-A590-272615D51E37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{660B2CFA-A62D-4E1B-A590-272615D51E37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{660B2CFA-A62D-4E1B-A590-272615D51E37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{660B2CFA-A62D-4E1B-A590-272615D51E37}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
