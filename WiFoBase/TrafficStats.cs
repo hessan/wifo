@@ -12,11 +12,6 @@ namespace WiFoBase
 	{
 		class TrafficInfo
 		{
-			int frameCount = 0;
-			int avgFrameDuration = 0;
-			double burstCount = 0;
-			double throughput = 0;
-
 			internal TrafficInfo() { }
 
 			[DisplayName("Frame Count"), Category("Results"), Description("The number of 802.11 frames detected in selected range")]
@@ -74,15 +69,11 @@ namespace WiFoBase
 					throughput = value;
 				}
 			}
-		}
 
-		[Browsable(false)]
-		public string DisplayName
-		{
-			get
-			{
-				return "Traffic Statistics";
-			}
+			private int frameCount = 0;
+			private int avgFrameDuration = 0;
+			private double burstCount = 0;
+			private double throughput = 0;
 		}
 
 		[Browsable(false)]
@@ -91,6 +82,15 @@ namespace WiFoBase
 			get
 			{
 				return "Hessan Feghhi";
+			}
+		}
+
+		[Browsable(false)]
+		public string DisplayName
+		{
+			get
+			{
+				return "Traffic Statistics";
 			}
 		}
 

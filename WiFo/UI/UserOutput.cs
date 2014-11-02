@@ -14,6 +14,77 @@
 			return new UserOutput(type);
 		}
 
+		public UserOutputTypes OutputType
+		{
+			get
+			{
+				return type;
+			}
+		}
+
+		public string Title
+		{
+			get
+			{
+				return title;
+			}
+		}
+
+		public string Message
+		{
+			get
+			{
+				if (type == UserOutputTypes.Message)
+					return obj1 as string;
+
+				return null;
+			}
+		}
+
+		public bool IsWarning
+		{
+			get
+			{
+				if (type == UserOutputTypes.Message)
+				{
+					bool? ret = obj2 as bool?;
+					return ret == true ? true : false;
+				}
+
+				return false;
+			}
+		}
+
+		public object Results
+		{
+			get
+			{
+				return obj1;
+			}
+		}
+
+		public object[] XValues
+		{
+			get
+			{
+				if (type == UserOutputTypes.BarPlot)
+					return obj1 as object[];
+
+				return new object[0];
+			}
+		}
+
+		public double[] YValues
+		{
+			get
+			{
+				if (type == UserOutputTypes.BarPlot)
+					return obj2 as double[];
+
+				return new double[0];
+			}
+		}
+
 		public UserOutput SetTitle(string title)
 		{
 			this.title = title;
@@ -63,76 +134,6 @@
 		public void Execute(IWiFoContext ctx)
 		{
 			ctx.Execute(this);
-		}
-
-		public UserOutputTypes OutputType
-		{
-			get
-			{
-				return type;
-			}
-		}
-
-		public string Title
-		{
-			get
-			{
-				return title;
-			}
-		}
-
-		public string Message
-		{
-			get
-			{
-				if (type == UserOutputTypes.Message)
-					return obj1 as string;
-
-				return null;
-			}
-		}
-
-		public bool IsWarning
-		{
-			get
-			{
-				if (type == UserOutputTypes.Message) {
-					bool? ret = obj2 as bool?;
-					return ret == true ? true : false;
-				}
-
-				return false;
-			}
-		}
-
-		public object Results
-		{
-			get
-			{
-				return obj1;
-			}
-		}
-
-		public object[] XValues
-		{
-			get
-			{
-				if (type == UserOutputTypes.BarPlot)
-					return obj1 as object[];
-
-				return new object[0];
-			}
-		}
-
-		public double[] YValues
-		{
-			get
-			{
-				if (type == UserOutputTypes.BarPlot)
-					return obj2 as double[];
-
-				return new double[0];
-			}
 		}
 
 		private UserOutput(UserOutputTypes type)

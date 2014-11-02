@@ -58,8 +58,6 @@ namespace WiFoUI.UI.Dialogs
 			else lblError.Visible = true;
 		}
 
-		private int minValue, maxValue;
-
 		private void NumberDialog_Load(object sender, EventArgs e)
 		{
 
@@ -69,5 +67,7 @@ namespace WiFoUI.UI.Dialogs
 		{
 			btnOK.Enabled = txtValue.TextLength > 0;
 		}
+
+		private int minValue, maxValue;
 	}
 }

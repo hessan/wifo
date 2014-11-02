@@ -3,33 +3,51 @@ using System.Collections.Generic;
 
 namespace WiFo.Expressions
 {
-	public class Macro : Expression
+	/// <summary>
+	/// Represents a macro in an expression-parsing context.
+	/// </summary>
+	/// <remarks>
+	/// A macro is a sub-class of <see cref="Expression"/> and can be interpretted the same way.
+	/// By adding a macro using the <see cref="AddMacro"/> method of this class, the name of the
+	/// macro will always be resolved to the corresponding macro expression if it appears in another
+	/// expression.
+	/// </remarks>
+	/// <seealso cref="Expression" />
+	public sealed class Macro : Expression
 	{
-		private static Dictionary<string, Macro> macros;
-
-		private string name;
-
 		static Macro()
 		{
 			macros = new Dictionary<string, Macro>();
-			AddMacro(new Macro("FREE_NAV", "0"));
-			AddMacro(new Macro("FREE_PHY", "1"));
-			AddMacro(new Macro("FREE_ONE_SLOT", "2"));
-			AddMacro(new Macro("FREE_TWO_SLOTS", "3"));
-			AddMacro(new Macro("MPDU_TIMEOUT", "4"));
-			AddMacro(new Macro("BACKOFF_COMPLETE", "7"));
-			AddMacro(new Macro("TX_BUSY", "8"));
-			AddMacro(new Macro("RX_BUSY", "9"));
-			AddMacro(new Macro("TX_RX_BUSY", "10"));
-			AddMacro(new Macro("TX_RX_BUSY2", "11"));
-			AddMacro(new Macro("PLCP_TIMEOUT", "15"));
+
+			AddMacro("FREE_NAV", "0");
+			AddMacro("FREE_PHY", "1");
+			AddMacro("FREE_ONE_SLOT", "2");
+			AddMacro("FREE_TWO_SLOTS", "3");
+			AddMacro("MPDU_TIMEOUT", "4");
+			AddMacro("BACKOFF_COMPLETE", "7");
+			AddMacro("TX_BUSY", "8");
+			AddMacro("RX_BUSY", "9");
+			AddMacro("TX_RX_BUSY", "10");
+			AddMacro("TX_RX_BUSY2", "11");
+			AddMacro("PLCP_TIMEOUT", "15");
 		}
 
-		public static void AddMacro(Macro macro)
+		/// <summary>
+		/// Adds a macro definition to the global expression-parsing context.
+		/// </summary>
+		/// <param name="name">Name of the new macro.</param>
+		/// <param name="exp">Expression to be parsed for the new macro.</param>
+		public static void AddMacro(string name, string exp)
 		{
-			macros[macro.name] = macro;
+			macros[name] = new Macro(name, exp);
 		}
 
+		/// <summary>
+		/// Resolves the value of a macro for a given state value.
+		/// </summary>
+		/// <param name="name">The name of the macro to be evaluated.</param>
+		/// <param name="state">The state value to be used in the evaluation.</param>
+		/// <returns></returns>
 		public static bool Resolve(string name, uint state)
 		{
 			try
@@ -43,12 +61,9 @@ namespace WiFo.Expressions
 			}
 		}
 
-		public Macro(string name, string s)
-			: base(s)
-		{
-			this.name = name;
-		}
-
+		/// <summary>
+		/// Gets the macro name associated with this instance.
+		/// </summary>
 		public string Name
 		{
 			get
@@ -56,5 +71,15 @@ namespace WiFo.Expressions
 				return name;
 			}
 		}
+
+		private Macro(string name, string s)
+			: base(s)
+		{
+			this.name = name;
+		}
+
+		private static Dictionary<string, Macro> macros;
+		private string name;
+
 	}
 }

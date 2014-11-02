@@ -17,7 +17,7 @@ namespace WiFo.Data
 	public class RecordList : IEnumerable<Record>, System.Collections.IEnumerable
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="RecordList"/> with the specified capacity.
+		/// Initializes a new instance of the <see cref="RecordList" /> with the specified capacity.
 		/// </summary>
 		/// <remarks>
 		/// <para>
@@ -41,6 +41,42 @@ namespace WiFo.Data
 			capacity = Math.Max(512, capacity);
 			this.capacity = capacity;
 			this.listCount = 0;
+		}
+
+		/// <summary>
+		/// Gets the <see cref="Record"/> at the specified index.
+		/// </summary>
+		/// <param name="index">The zero-based index of the element to get.</param>
+		/// <returns>The record at the specified index.</returns>
+		public virtual Record this[int index]
+		{
+			get
+			{
+				int pageIndex = index / pageSize, pageOffset = index % pageSize;
+				return pages[pageIndex][pageOffset];
+			}
+		}
+
+		/// <summary>
+		/// Gets the capacity of this instance.
+		/// </summary>
+		public int Capacity
+		{
+			get
+			{
+				return capacity;
+			}
+		}
+
+		/// <summary>
+		/// Gets the number of items currently in the list.
+		/// </summary>
+		/// <remarks>
+		/// This value is equal to <see cref="Capacity" />, but it is typically less (see <see cref="RecordList(int)" />).
+		/// </remarks>
+		public virtual int Count
+		{
+			get { return listCount; }
 		}
 
 		/// <summary>
@@ -72,42 +108,6 @@ namespace WiFo.Data
 			get
 			{
 				return this[Count - 1];
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public int Capacity
-		{
-			get
-			{
-				return capacity;
-			}
-		}
-
-		/// <summary>
-		/// Gets the number of items currently in the list.
-		/// </summary>
-		/// <remarks>
-		/// This value is equal to <see cref="Capacity" />, but it is typically less (see <see cref="RecordList(int)" />).
-		/// </remarks>
-		public virtual int Count
-		{
-			get { return listCount; }
-		}
-
-		/// <summary>
-		/// Gets the <see cref="Record"/> at the specified index.
-		/// </summary>
-		/// <param name="index">The zero-based index of the element to get.</param>
-		/// <returns>The record at the specified index.</returns>
-		public virtual Record this[int index]
-		{
-			get
-			{
-				int pageIndex = index / pageSize, pageOffset = index % pageSize;
-				return pages[pageIndex][pageOffset];
 			}
 		}
 
@@ -162,6 +162,22 @@ namespace WiFo.Data
 		}
 
 		/// <summary>
+		/// Returns a <see cref="RecordList"/> instance, containing a subrange of the records in the
+		/// current instance.
+		/// </summary>
+		/// <remarks>
+		/// You may assume that the new list allcoates constant memory, which is independent of the number
+		/// of items or the capacity of the current list.
+		/// </remarks>
+		/// <param name="startIndex">The index which marks the beginning of the new list.</param>
+		/// <param name="endIndex">The end of the new list (exclusive of this index).</param>
+		/// <returns>The cropped list.</returns>
+		public RecordList Crop(int startIndex, int endIndex)
+		{
+			return new CroppedRecordList(this, startIndex, endIndex);
+		}
+
+		/// <summary>
 		/// Finds the next record in the list where the masked value of the <see cref="State"/> property
 		/// is changed.
 		/// </summary>
@@ -201,22 +217,6 @@ namespace WiFo.Data
 					return i;
 
 			return -1;
-		}
-
-		/// <summary>
-		/// Returns a <see cref="RecordList"/> instance, containing a subrange of the records in the
-		/// current instance.
-		/// </summary>
-		/// <remarks>
-		/// You may assume that the new list allcoates constant memory, which is independent of the number
-		/// of items or the capacity of the current list.
-		/// </remarks>
-		/// <param name="startIndex">The index which marks the beginning of the new list.</param>
-		/// <param name="endIndex">The end of the new list (exclusive of this index).</param>
-		/// <returns>The cropped list.</returns>
-		public RecordList Crop(int startIndex, int endIndex)
-		{
-			return new CroppedRecordList(this, startIndex, endIndex);
 		}
 
 		/// <summary>

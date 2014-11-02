@@ -6,7 +6,7 @@ namespace WiFoBase.Data
 {
 	internal static class Utils
 	{
-		internal static int GetNextPacket(RecordList records, int startIndex, int endIndex, out TXInfo info)
+		public static int GetNextPacket(RecordList records, int startIndex, int endIndex, out TXInfo info)
 		{
 			for (int i1 = startIndex; i1 < endIndex; i1++)
 			{

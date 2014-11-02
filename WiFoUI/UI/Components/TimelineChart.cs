@@ -24,11 +24,6 @@ namespace WiFoUI.UI.Components
 			container.Add(this);
 		}
 
-		public void Initialize(RecordList list)
-		{
-			timeline = new RecordTimeline(list);
-		}
-
 		[Browsable(false)]
 		public Expression Expression
 		{
@@ -49,6 +44,11 @@ namespace WiFoUI.UI.Components
 			{
 				return timeline;
 			}
+		}
+
+		public void Initialize(RecordList list)
+		{
+			timeline = new RecordTimeline(list);
 		}
 
 		[CategoryAttribute("Behavior"), DescriptionAttribute("The number of ticks on the horizontal axis.")]
@@ -117,7 +117,7 @@ namespace WiFoUI.UI.Components
 
 				RecordList records = timeline.Records;
 				Record prevRecord = records[startIndex];
-				List<Variable<bool>> savedResult = expression.Evaluate(prevRecord.State);
+				List<bool> savedResult = expression.Evaluate(prevRecord.State);
 
 				if (endIndex - startIndex > rect.Width * 2)
 				{
@@ -125,14 +125,14 @@ namespace WiFoUI.UI.Components
 					{
 						uint time = (uint)ToDataX(xd);
 						uint state = timeline.GetStateAt(time);
-						List<Variable<bool>> result = expression.Evaluate(state);
+						List<bool> result = expression.Evaluate(state);
 
 						int x = (int)xd;
 
 						for (int j = 0; j < result.Count; j++)
 						{
-							int y = rect.Bottom - (result[j].Value ? 20 : 0) - 35 * (j + 1);
-							int savedY = rect.Bottom - (savedResult[j].Value ? 20 : 0) - 35 * (j + 1);
+							int y = rect.Bottom - (result[j] ? 20 : 0) - 35 * (j + 1);
+							int savedY = rect.Bottom - (savedResult[j] ? 20 : 0) - 35 * (j + 1);
 							g.DrawLine(chartPens[j], x, savedY, x, y);
 							g.DrawEllipse(chartPens[j], x - 1, savedY - 1, 2, 2);
 						}
@@ -147,12 +147,12 @@ namespace WiFoUI.UI.Components
 						Record record = records[i];
 						int leftX = ToCanvasX((int)prevRecord.Time);
 						int x = ToCanvasX((int)record.Time);
-						List<Variable<bool>> result = expression.Evaluate(record.State);
+						List<bool> result = expression.Evaluate(record.State);
 
 						for (int j = 0; j < result.Count; j++)
 						{
-							int y = rect.Bottom - (result[j].Value ? 20 : 0) - 35 * (j + 1);
-							int savedY = rect.Bottom - (savedResult[j].Value ? 20 : 0) - 35 * (j + 1);
+							int y = rect.Bottom - (result[j] ? 20 : 0) - 35 * (j + 1);
+							int savedY = rect.Bottom - (savedResult[j] ? 20 : 0) - 35 * (j + 1);
 
 							if (x < rect.Right)
 							{

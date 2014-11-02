@@ -11,8 +11,6 @@ namespace WiFoUI.Logic
 {
 	public class FetchEventArgs : EventArgs
 	{
-		private List<Record> records;
-
 		public FetchEventArgs(List<Record> records)
 		{
 			this.records = records;
@@ -25,6 +23,8 @@ namespace WiFoUI.Logic
 				return records;
 			}
 		}
+
+		private List<Record> records;
 	}
 
 	public delegate void FetchEventHandler(object sender, FetchEventArgs e);
@@ -34,16 +34,19 @@ namespace WiFoUI.Logic
 		public event FetchEventHandler FetchComplete;
 		public event EventHandler Connected, Disconnected;
 
-		private string serverIP;
-		private int serverPort;
-		private Boolean stopped = true;
-		private Socket client;
-
 		public Client(string ip, int port)
 		{
 			serverIP = ip;
 			serverPort = port;
 			client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+		}
+
+		public bool IsStopped
+		{
+			get
+			{
+				return stopped;
+			}
 		}
 
 		public void Start()
@@ -59,14 +62,6 @@ namespace WiFoUI.Logic
 		public void Stop()
 		{
 			stopped = true;
-		}
-
-		public bool IsStopped
-		{
-			get
-			{
-				return stopped;
-			}
 		}
 
 		private void ConnectCallback(IAsyncResult ar)
@@ -127,5 +122,10 @@ namespace WiFoUI.Logic
 			client.Close();
 			OnDisconnected();
 		}
+
+		private string serverIP;
+		private int serverPort;
+		private bool stopped = true;
+		private Socket client;
 	}
 }

@@ -20,8 +20,6 @@ namespace WiFoUI.UI.Forms
 {
 	public partial class MainForm : Form, IWiFoContext
 	{
-		private Client client = new Client("10.220.10.69", 1363);
-
 		public object Execute(UserInput input)
 		{
 			switch (input.InputType)
@@ -116,19 +114,6 @@ namespace WiFoUI.UI.Forms
 			Application.Exit();
 		}
 
-		private void client_FetchComplete(object sender, FetchEventArgs e)
-		{
-			RecordList records = timelineChart.Timeline.Records;
-			records.AppendAll(e.Records);
-
-			try
-			{
-				lblRecords.Text = records.Count + " records";
-				timelineChart.Invalidate();
-			}
-			catch { }
-		}
-
 		private void client_Connected(object sender, EventArgs e)
 		{
 			connectToolStripMenuItem.Text = "Disconnect";
@@ -145,43 +130,22 @@ namespace WiFoUI.UI.Forms
 			connectToolStripMenuItem.Enabled = true;
 		}
 
+		private void client_FetchComplete(object sender, FetchEventArgs e)
+		{
+			RecordList records = timelineChart.Timeline.Records;
+			records.AppendAll(e.Records);
+
+			try
+			{
+				lblRecords.Text = records.Count + " records";
+				timelineChart.Invalidate();
+			}
+			catch { }
+		}
+
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Close();
-		}
-
-		private void PopulateStudies()
-		{
-			int count = 0;
-
-			foreach (IStudy ext in ExtensionManager.Studies)
-			{
-				ToolStripMenuItem item = new ToolStripMenuItem(ext.DisplayName);
-				item.Tag = ext;
-				item.Click += new EventHandler(study_Click);
-				studiesToolStripMenuItem.DropDownItems.Add(item);
-				count++;
-			}
-
-			if (count > 0)
-				studiesToolStripMenuItem.Enabled = true;
-		}
-
-		private void PopulateTimelineViews()
-		{
-			int count = 0;
-
-			foreach (ITimelineView ext in ExtensionManager.TimelineViews)
-			{
-				ToolStripMenuItem item = new ToolStripMenuItem(ext.DisplayName);
-				item.Tag = ext;
-				item.Click += new EventHandler(view_Click);
-				mnuView.DropDownItems.Add(item);
-				count++;
-			}
-
-			if (count > 0)
-				sepView.Visible = true;
 		}
 
 		private void study_Click(object sender, EventArgs e)
@@ -337,5 +301,42 @@ namespace WiFoUI.UI.Forms
 		{
 			new OptionsDialog().ShowDialog(this);
 		}
+
+		private void PopulateStudies()
+		{
+			int count = 0;
+
+			foreach (IStudy ext in ExtensionManager.Studies)
+			{
+				ToolStripMenuItem item = new ToolStripMenuItem(ext.DisplayName);
+				item.Tag = ext;
+				item.Click += new EventHandler(study_Click);
+				studiesToolStripMenuItem.DropDownItems.Add(item);
+				count++;
+			}
+
+			if (count > 0)
+				studiesToolStripMenuItem.Enabled = true;
+		}
+
+		private void PopulateTimelineViews()
+		{
+			int count = 0;
+
+			foreach (ITimelineView ext in ExtensionManager.TimelineViews)
+			{
+				ToolStripMenuItem item = new ToolStripMenuItem(ext.DisplayName);
+				item.Tag = ext;
+				item.Click += new EventHandler(view_Click);
+				mnuView.DropDownItems.Add(item);
+				count++;
+			}
+
+			if (count > 0)
+				sepView.Visible = true;
+		}
+
+		private Client client = new Client("10.220.10.69", 1363);
+
 	}
 }

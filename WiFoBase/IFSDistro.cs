@@ -14,15 +14,6 @@ namespace WiFoBase
 	public class IFSDistro : IStudy, ISettingsContributor
 	{
 		[Browsable(false)]
-		public string DisplayName
-		{
-			get
-			{
-				return "IFS Distribution";
-			}
-		}
-
-		[Browsable(false)]
 		public string Author
 		{
 			get
@@ -41,6 +32,15 @@ namespace WiFoBase
 			set
 			{
 				binSize = value;
+			}
+		}
+
+		[Browsable(false)]
+		public string DisplayName
+		{
+			get
+			{
+				return "IFS Distribution";
 			}
 		}
 

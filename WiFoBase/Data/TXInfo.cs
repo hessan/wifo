@@ -2,15 +2,27 @@
 {
 	internal class TXInfo
 	{
-		public int IFS
+		public int ACKDuration
 		{
 			get
 			{
-				return ifs;
+				return ack_time;
 			}
 			set
 			{
-				ifs = value;
+				ack_time = value;
+			}
+		}
+
+		public uint EndTime
+		{
+			get
+			{
+				return end_time;
+			}
+			set
+			{
+				end_time = value;
 			}
 		}
 
@@ -26,15 +38,15 @@
 			}
 		}
 
-		public int ACKDuration
+		public int IFS
 		{
 			get
 			{
-				return ack_time;
+				return ifs;
 			}
 			set
 			{
-				ack_time = value;
+				ifs = value;
 			}
 		}
 
@@ -47,18 +59,6 @@
 			set
 			{
 				start_time = value;
-			}
-		}
-
-		public uint EndTime
-		{
-			get
-			{
-				return end_time;
-			}
-			set
-			{
-				end_time = value;
 			}
 		}
 

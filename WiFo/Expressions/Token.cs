@@ -2,7 +2,7 @@
 
 namespace WiFo.Expressions
 {
-	public class Token
+	internal class Token
 	{
 		public enum TokenType
 		{
@@ -18,13 +18,20 @@ namespace WiFo.Expressions
 			AS
 		}
 
-		private TokenType type;
-		private string value;
-
-		private Token(TokenType type, string value)
+		public TokenType SymbolType
 		{
-			this.type = type;
-			this.value = value;
+			get
+			{
+				return type;
+			}
+		}
+
+		public string Value
+		{
+			get
+			{
+				return value;
+			}
 		}
 
 		public static Token Read(String source, int startIndex, out int currentIndex)
@@ -102,14 +109,10 @@ namespace WiFo.Expressions
 			return null;
 		}
 
-		private static bool IsWhiteSpace(char c)
+		private Token(TokenType type, string value)
 		{
-			return c == ' ' || c == '\t';
-		}
-
-		private static bool IsNumeric(char c)
-		{
-			return c >= '0' && c <= '9';
+			this.type = type;
+			this.value = value;
 		}
 
 		private static bool IsAlpha(char c)
@@ -122,20 +125,17 @@ namespace WiFo.Expressions
 			return IsAlpha(c) || IsNumeric(c);
 		}
 
-		public TokenType SymbolType
+		private static bool IsNumeric(char c)
 		{
-			get
-			{
-				return type;
-			}
+			return c >= '0' && c <= '9';
 		}
 
-		public string Value
+		private static bool IsWhiteSpace(char c)
 		{
-			get
-			{
-				return value;
-			}
+			return c == ' ' || c == '\t';
 		}
+
+		private TokenType type;
+		private string value;
 	}
 }

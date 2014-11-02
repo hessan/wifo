@@ -23,6 +23,18 @@ namespace WiFoUI.UI.Components
 			container.Add(this);
 		}
 
+		public ITimelineView TimelineView
+		{
+			get
+			{
+				return view;
+			}
+			set
+			{
+				view = value;
+			}
+		}
+
 		public void Initialize(RecordList list)
 		{
 			timeline = new RecordTimeline(list);
@@ -46,18 +58,6 @@ namespace WiFoUI.UI.Components
 		public void DrawStaticString(System.Drawing.Color color, int size, int x, int y)
 		{
 			throw new NotImplementedException();
-		}
-
-		public ITimelineView TimelineView
-		{
-			get
-			{
-				return view;
-			}
-			set
-			{
-				view = value;
-			}
 		}
 
 		protected override int GetMinimumX()

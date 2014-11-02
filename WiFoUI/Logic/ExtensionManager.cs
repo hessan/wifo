@@ -11,32 +11,11 @@ namespace WiFoUI.Logic
 {
 	class ExtensionManager
 	{
-		private static IExtension[] extensions;
-
-		public static void LoadExtensions()
+		public static IExtension[] All
 		{
-			DirectoryInfo dir = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.GetDirectories("ext")[0];
-			FileInfo[] extFiles = dir.GetFiles("*.wifo");
-			List<IExtension> lExtensions = new List<IExtension>();
-
-			foreach (FileInfo extFile in extFiles)
+			get
 			{
-				try
-				{
-					Assembly assembly = Assembly.LoadFile(extFile.FullName);
-
-					foreach (Type type in assembly.GetExportedTypes())
-					{
-						if (typeof(IExtension).IsAssignableFrom(type))
-						{
-							IExtension ext = (IExtension)type.GetConstructor(new Type[0]).Invoke(new object[0]);
-							lExtensions.Add(ext);
-						}
-					}
-
-					extensions = lExtensions.ToArray();
-				}
-				catch { }
+				return extensions;
 			}
 		}
 
@@ -68,12 +47,33 @@ namespace WiFoUI.Logic
 			}
 		}
 
-		public static IExtension[] All
+		public static void LoadExtensions()
 		{
-			get
+			DirectoryInfo dir = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.GetDirectories("ext")[0];
+			FileInfo[] extFiles = dir.GetFiles("*.wifo");
+			List<IExtension> lExtensions = new List<IExtension>();
+
+			foreach (FileInfo extFile in extFiles)
 			{
-				return extensions;
+				try
+				{
+					Assembly assembly = Assembly.LoadFile(extFile.FullName);
+
+					foreach (Type type in assembly.GetExportedTypes())
+					{
+						if (typeof(IExtension).IsAssignableFrom(type))
+						{
+							IExtension ext = (IExtension)type.GetConstructor(new Type[0]).Invoke(new object[0]);
+							lExtensions.Add(ext);
+						}
+					}
+
+					extensions = lExtensions.ToArray();
+				}
+				catch { }
 			}
 		}
+
+		private static IExtension[] extensions;
 	}
 }

@@ -49,6 +49,74 @@ namespace WiFoBase
 			}
 		}
 
+		public void Draw(RecordTimeline timeline, uint startTime, uint endTime, IWiFoCanvas g)
+		{
+			int startIndex = GetIndexBefore(startTime), endIndex = GetIndexBefore(endTime);
+
+			for (int i = startIndex; i < endIndex; i++)
+			{
+				PcapRecord record = records[i];
+				Color c = cData;
+
+				if (record.Type == FrameTypes.Control)
+					c = cCtrl;
+				else if (record.Type == FrameTypes.Management)
+					c = cMgmt;
+
+				g.DrawShade(c, record.Time, record.Time + record.Duration);
+			}
+		}
+
+		private int GetIndexBefore(uint time)
+		{
+			int lowerIndex = 0, upperIndex = records.Count - 1;
+
+			while (upperIndex - lowerIndex > 1)
+			{
+				int mid = (upperIndex + lowerIndex) / 2;
+
+				if (records[mid].Time >= time)
+					upperIndex = mid;
+
+				if (records[mid].Time <= time)
+					lowerIndex = mid;
+			}
+
+			return lowerIndex;
+		}
+
+		private int GetIndexAfter(uint time)
+		{
+			return Math.Min(records.Count - 1, GetIndexBefore(time) + 1);
+		}
+
+		public void OnClick(uint timeStamp, IWiFoContext wifo)
+		{
+			int candidateIndex = GetIndexBefore(timeStamp);
+
+			if (candidateIndex >= 0)
+			{
+				PcapRecord candidate = records[candidateIndex];
+
+				if (candidate.Time <= timeStamp && candidate.Time + candidate.Duration >= timeStamp)
+					UserOutput
+						.For(UserOutputTypes.Results)
+						.SetTitle("Frame Information")
+						.SetResults(candidate)
+						.Execute(wifo);
+			}
+		}
+
+		public void Load(ISettings settings)
+		{
+			apMACAddr = settings.GetString("APMAC", "0014a46d08d0");
+		}
+
+		public void Save(ISettings settings)
+		{
+			settings.Put("APMAC", apMACAddr);
+		}
+
 		public void OnSelected(RecordTimeline timeline, IWiFoContext wifo)
 		{
 			object res = UserInput
@@ -149,74 +217,6 @@ namespace WiFoBase
 		public void OnUnSelected(RecordTimeline timeline, IWiFoContext wifo)
 		{
 			records.Clear();
-		}
-
-		public void Draw(RecordTimeline timeline, uint startTime, uint endTime, IWiFoCanvas g)
-		{
-			int startIndex = GetIndexBefore(startTime), endIndex = GetIndexBefore(endTime);
-
-			for (int i = startIndex; i < endIndex; i++)
-			{
-				PcapRecord record = records[i];
-				Color c = cData;
-
-				if (record.Type == FrameTypes.Control)
-					c = cCtrl;
-				else if (record.Type == FrameTypes.Management)
-					c = cMgmt;
-
-				g.DrawShade(c, record.Time, record.Time + record.Duration);
-			}
-		}
-
-		private int GetIndexBefore(uint time)
-		{
-			int lowerIndex = 0, upperIndex = records.Count - 1;
-
-			while (upperIndex - lowerIndex > 1)
-			{
-				int mid = (upperIndex + lowerIndex) / 2;
-
-				if (records[mid].Time >= time)
-					upperIndex = mid;
-
-				if (records[mid].Time <= time)
-					lowerIndex = mid;
-			}
-
-			return lowerIndex;
-		}
-
-		private int GetIndexAfter(uint time)
-		{
-			return Math.Min(records.Count - 1, GetIndexBefore(time) + 1);
-		}
-
-		public void OnClick(uint timeStamp, IWiFoContext wifo)
-		{
-			int candidateIndex = GetIndexBefore(timeStamp);
-
-			if (candidateIndex >= 0)
-			{
-				PcapRecord candidate = records[candidateIndex];
-
-				if (candidate.Time <= timeStamp && candidate.Time + candidate.Duration >= timeStamp)
-					UserOutput
-						.For(UserOutputTypes.Results)
-						.SetTitle("Frame Information")
-						.SetResults(candidate)
-						.Execute(wifo);
-			}
-		}
-
-		public void Load(ISettings settings)
-		{
-			apMACAddr = settings.GetString("APMAC", "0014a46d08d0");
-		}
-
-		public void Save(ISettings settings)
-		{
-			settings.Put("APMAC", apMACAddr);
 		}
 
 		private List<PcapRecord> records = new List<PcapRecord>();

@@ -17,21 +17,73 @@ namespace WiFo.UI
 			return new UserInput(type);
 		}
 
-		public UserInput SetMinimum(int min)
+		public int DefaultIntValue
 		{
-			this.min = min;
-			return this;
+			get
+			{
+				return def == null ? 0 : (int)def;
+			}
 		}
 
-		public UserInput SetMaximum(int max)
+		public string DefaultValue
 		{
-			this.max = max;
-			return this;
+			get
+			{
+				return this.def as string;
+			}
 		}
 
-		public UserInput SetMaxLength(int max)
+		public string Filter
 		{
-			return SetMaximum(max);
+			get
+			{
+				return this.param;
+			}
+		}
+
+		public UserInputTypes InputType
+		{
+			get
+			{
+				return type;
+			}
+		}
+
+		public int Maximum
+		{
+			get
+			{
+				return max;
+			}
+		}
+
+		public string Message
+		{
+			get
+			{
+				return this.param;
+			}
+		}
+
+		public int Minimum
+		{
+			get
+			{
+				return min;
+			}
+		}
+
+		public string Title
+		{
+			get
+			{
+				return title;
+			}
+		}
+
+		public object Execute(IWiFoContext ctx)
+		{
+			return ctx.Execute(this);
 		}
 
 		public UserInput SetDefault(int def)
@@ -50,17 +102,43 @@ namespace WiFo.UI
 			return this;
 		}
 
-		public UserInput SetTitle(string title)
+		public UserInput SetFilter(string filter)
 		{
-			this.title = title;
+			if (type == UserInputTypes.FileName)
+				this.param = filter;
+
 			return this;
 		}
 
-		public UserInput SetFilter(string filter)
+		public UserInput SetMaximum(int max)
 		{
-			if(type == UserInputTypes.FileName)
-				this.param = filter;
+			this.max = max;
+			return this;
+		}
 
+		public UserInput SetMessage(string message)
+		{
+			if (type == UserInputTypes.Boolean ||
+				type == UserInputTypes.String)
+				this.param = message;
+
+			return this;
+		}
+
+		public UserInput SetMinimum(int min)
+		{
+			this.min = min;
+			return this;
+		}
+
+		public UserInput SetMaxLength(int max)
+		{
+			return SetMaximum(max);
+		}
+
+		public UserInput SetTitle(string title)
+		{
+			this.title = title;
 			return this;
 		}
 
@@ -70,84 +148,6 @@ namespace WiFo.UI
 				this.param = unit;
 
 			return this;
-		}
-
-		public UserInput SetMessage(string message)
-		{
-			if(type == UserInputTypes.Boolean ||
-				type == UserInputTypes.String)
-				this.param = message;
-
-			return this;
-		}
-
-		public object Execute(IWiFoContext ctx)
-		{
-			return ctx.Execute(this);
-		}
-
-		public UserInputTypes InputType
-		{
-			get
-			{
-				return type;
-			}
-		}
-
-		public string Title
-		{
-			get
-			{
-				return title;
-			}
-		}
-
-		public string Message
-		{
-			get
-			{
-				return this.param;
-			}
-		}
-
-		public string Filter
-		{
-			get
-			{
-				return this.param;
-			}
-		}
-
-		public string DefaultValue
-		{
-			get
-			{
-				return this.def as string;
-			}
-		}
-
-		public int DefaultIntValue
-		{
-			get
-			{
-				return def == null ? 0 : (int)def;
-			}
-		}
-
-		public int Minimum
-		{
-			get
-			{
-				return min;
-			}
-		}
-
-		public int Maximum
-		{
-			get
-			{
-				return max;
-			}
 		}
 
 		private UserInput(UserInputTypes type)

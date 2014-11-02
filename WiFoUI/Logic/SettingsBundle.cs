@@ -20,38 +20,14 @@ namespace WiFoUI.Logic
 			String
 		}
 
-		private Dictionary<string, object> data = new Dictionary<string, object>();
-		private string fileName;
-		internal string prefix = "wifo_";
-
 		public SettingsBundle(string fileName)
 		{
 			this.fileName = fileName;
 		}
 
-		public void Put(string key, int value)
+		public void Dispose()
 		{
-			data[prefix + key] = value;
-		}
-
-		public void Put(string key, long value)
-		{
-			data[prefix + key] = value;
-		}
-
-		public void Put(string key, float value)
-		{
-			data[prefix + key] = value;
-		}
-
-		public void Put(string key, double value)
-		{
-			data[prefix + key] = value;
-		}
-
-		public void Put(string key, string value)
-		{
-			data[prefix + key] = value;
+			data.Clear();
 		}
 
 		public int GetInt(string key, int defaultValue = default(int))
@@ -124,6 +100,31 @@ namespace WiFoUI.Logic
 			catch { }
 
 			return defaultValue;
+		}
+
+		public void Put(string key, int value)
+		{
+			data[prefix + key] = value;
+		}
+
+		public void Put(string key, long value)
+		{
+			data[prefix + key] = value;
+		}
+
+		public void Put(string key, float value)
+		{
+			data[prefix + key] = value;
+		}
+
+		public void Put(string key, double value)
+		{
+			data[prefix + key] = value;
+		}
+
+		public void Put(string key, string value)
+		{
+			data[prefix + key] = value;
 		}
 
 		public void Load()
@@ -208,9 +209,9 @@ namespace WiFoUI.Logic
 			stream.Close();
 		}
 
-		public void Dispose()
-		{
-			data.Clear();
-		}
+		internal string prefix = "wifo_";
+
+		private Dictionary<string, object> data = new Dictionary<string, object>();
+		private string fileName;
 	}
 }

@@ -12,13 +12,6 @@ namespace WiFoUI.Logic
 {
 	public class SettingsManager
 	{
-		private static SettingsManager instance;
-
-		static SettingsManager()
-		{
-			instance = new SettingsManager(new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName + "\\settings.dat");
-		}
-
 		public static SettingsManager Default
 		{
 			get
@@ -26,11 +19,6 @@ namespace WiFoUI.Logic
 				return instance;
 			}
 		}
-
-		private string settingsPath;
-
-		private string serverAddress = "10.220.10.69";
-		private int serverPort = 1363;
 
 		public SettingsManager(string settingsFile)
 		{
@@ -101,5 +89,16 @@ namespace WiFoUI.Logic
 			bundle.Save();
 			bundle.Dispose();
 		}
+
+		static SettingsManager()
+		{
+			instance = new SettingsManager(new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName + "\\settings.dat");
+		}
+
+		private string settingsPath;
+		private string serverAddress = "10.220.10.69";
+		private int serverPort = 1363;
+
+		private static SettingsManager instance;
 	}
 }

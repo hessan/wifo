@@ -19,13 +19,13 @@ namespace WiFo.Data
 		}
 
 		/// <summary>
-		/// Gets the timestamp associated with this record.
+		/// Gets a value indicating whether the channel is free according to the State value.
 		/// </summary>
-		public uint Time
+		public bool IsChannelFree
 		{
 			get
 			{
-				return time;
+				return (ifs_state & 2) == 2;
 			}
 		}
 
@@ -41,29 +41,14 @@ namespace WiFo.Data
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether the channel is free according to the State value.
+		/// Gets the timestamp associated with this record.
 		/// </summary>
-		public bool IsChannelFree
+		public uint Time
 		{
 			get
 			{
-				return (ifs_state & 2) == 2;
+				return time;
 			}
-		}
-
-		/// <summary>
-		/// Determines whether the specified object is a <see cref="Record"/> and is equal to the current object.
-		/// </summary>
-		/// <param name="obj">The other object.</param>
-		/// <returns><b>true</b> if the specified object is equal to the current object; otherwise, <b>false</b>.</returns>
-		public override bool Equals(object obj)
-		{
-			Record rec = obj as Record;
-
-			if(rec == null)
-				return false;
-
-			return rec.time == time && rec.ifs_state == ifs_state;
 		}
 
 		/// <summary>
@@ -71,7 +56,27 @@ namespace WiFo.Data
 		/// whether the current instance precedes, follows, or occurs at the same time as the other object.
 		/// </summary>
 		/// <param name="other">The <see cref="Record"/> object to compare with this instance.</param>
-		/// <returns>A value that indicates the relative order of the objects being compared.</returns>
+		/// <returns>
+		///		A value that indicates the relative order of the records being compared. The return value has these meanings:
+		///		<list type="table">
+		///			<listheader>
+		///				<term>Value</term>
+		///				<description>Meaning</description>
+		///			</listheader>
+		///			<item>
+		///				<term>Less than zero</term>
+		///				<description>This instance precedes <paramref name="other"/> in time.</description>
+		///			</item>
+		///			<item>
+		///				<term>Zero</term>
+		///				<description>This instance occurse at exactly the same time as <paramref name="other"/>.</description>
+		///			</item>
+		///			<item>
+		///				<term>Greater than zero</term>
+		///				<description>This instance follows <paramref name="other"/> in time.</description>
+		///			</item>
+		///		</list>
+		/// </returns>
 		public int CompareTo(Record other)
 		{
 			if (other == null)
@@ -93,6 +98,21 @@ namespace WiFo.Data
 		public override int GetHashCode()
 		{
 			return (int)time;
+		}
+
+		/// <summary>
+		/// Determines whether the specified object is a <see cref="Record"/> and is equal to the current object.
+		/// </summary>
+		/// <param name="obj">The other object.</param>
+		/// <returns><b>true</b> if the specified object is equal to the current object; otherwise, <b>false</b>.</returns>
+		public override bool Equals(object obj)
+		{
+			Record rec = obj as Record;
+
+			if (rec == null)
+				return false;
+
+			return rec.time == time && rec.ifs_state == ifs_state;
 		}
 
 		/// <summary>

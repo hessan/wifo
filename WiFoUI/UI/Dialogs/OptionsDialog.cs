@@ -17,8 +17,6 @@ namespace WiFoUI.UI.Dialogs
 	{
 		private class ExtensionWrapper
 		{
-			internal IExtension ext;
-
 			public ExtensionWrapper(IExtension ext)
 			{
 				this.ext = ext;
@@ -28,6 +26,8 @@ namespace WiFoUI.UI.Dialogs
 			{
 				return ext.DisplayName;
 			}
+
+			internal IExtension ext;
 		}
 
 		public OptionsDialog()
