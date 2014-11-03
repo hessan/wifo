@@ -28,27 +28,27 @@ namespace WiFoUI.UI.Forms
 			{
 				switch (input.InputType)
 				{
-					case UserInputTypes.Boolean:
+					case UserInputType.Boolean:
 						result.obj = MessageBox.Show(
 							input.Message,
 							input.Title,
 							MessageBoxButtons.OKCancel) == DialogResult.OK;
 						break;
-					case UserInputTypes.Integer:
+					case UserInputType.Integer:
 						result.obj = NumberDialog.Show(
 							input.Title,
 							input.DefaultIntValue,
 							input.Minimum,
 							input.Maximum,
-							input.Message == null ? String.Empty : input.Message);
+							input.UnitText == null ? String.Empty : input.UnitText);
 						break;
-					case UserInputTypes.String:
+					case UserInputType.String:
 						result.obj = InputDialog.Show(
 							input.Title,
 							input.Message,
 							input.DefaultValue);
 						break;
-					case UserInputTypes.FileName:
+					case UserInputType.FileName:
 						OFD.Title = input.Title;
 						OFD.Filter = input.Filter;
 						OFD.FileName = "";
@@ -69,20 +69,20 @@ namespace WiFoUI.UI.Forms
 			{
 				switch (output.OutputType)
 				{
-					case UserOutputTypes.BarPlot:
+					case UserOutputType.BarPlot:
 						ChartForm form = new ChartForm();
 						form.Text = output.Title;
 						form.InitializeChart(output.XValues, output.YValues);
 						form.Show();
 						break;
-					case UserOutputTypes.Message:
+					case UserOutputType.Message:
 						MessageBox.Show(
 							output.Message,
 							output.Title,
 							MessageBoxButtons.OK,
 							output.IsWarning ? MessageBoxIcon.Warning : MessageBoxIcon.None);
 						break;
-					case UserOutputTypes.Results:
+					case UserOutputType.Results:
 						PropertiesForm props = new PropertiesForm(output.Results);
 						props.Text = output.Title;
 						props.Show();
@@ -265,7 +265,7 @@ namespace WiFoUI.UI.Forms
 
 				reader.Close();
 				lblRecords.Text = records.Count + " records";
-				timelineChart.Invalidate();
+				timelineChart.Invalidate(timelineChart.ChartBounds);
 			}
 		}
 

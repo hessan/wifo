@@ -17,6 +17,7 @@ namespace WiFoUI.UI.Components
 			DoubleBuffered = true;
 		}
 
+		[Category("Data"), Description("Gets or sets the items in the bar plot.")]
 		public object[] XValues
 		{
 			get
@@ -36,6 +37,7 @@ namespace WiFoUI.UI.Components
 			}
 		}
 
+		[Category("Data"), Description("Gets or sets the y values corresponding to the items.")]
 		public double[] YValues
 		{
 			get

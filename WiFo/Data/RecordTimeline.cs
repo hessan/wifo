@@ -82,12 +82,12 @@ namespace WiFo.Data
 		/// Finds the index of the record that happens immediately before the specified timestamp.
 		/// </summary>
 		/// <param name="time">The time to succeed the record's timestamp.</param>
-		/// <returns>The index to the record if such record exists; otherwise the first record in the list.</returns>
+		/// <returns>The index to the record.</returns>
 		/// <seealso cref="Record"/>
 		public int GetIndexBefore(uint time)
 		{
 			uint startTime = StartTime;
-			uint duration = EndTime - startTime;
+			uint duration = EndTime - startTime + 1;
 			int count = records.Count;
 
 			if (time < startTime)

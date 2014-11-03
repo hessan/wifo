@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Text;
 using PacketDotNet;
 using PacketDotNet.Ieee80211;
 using SharpPcap;
@@ -22,7 +21,7 @@ namespace WiFoBase
 		{
 			get
 			{
-				return "Pcap Overlay";
+				return "Pcap View";
 			}
 		}
 
@@ -100,7 +99,7 @@ namespace WiFoBase
 
 				if (candidate.Time <= timeStamp && candidate.Time + candidate.Duration >= timeStamp)
 					UserOutput
-						.For(UserOutputTypes.Results)
+						.For(UserOutputType.Results)
 						.SetTitle("Frame Information")
 						.SetResults(candidate)
 						.Execute(wifo);
@@ -120,7 +119,7 @@ namespace WiFoBase
 		public void OnSelected(RecordTimeline timeline, IWiFoContext wifo)
 		{
 			object res = UserInput
-				.For(UserInputTypes.FileName)
+				.For(UserInputType.FileName)
 				.SetTitle("Open Pcap File")
 				.SetFilter("Capture Files|*.pcap;*.cap|All Files|*.*")
 				.Execute(wifo);

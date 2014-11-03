@@ -35,10 +35,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -52,9 +49,10 @@
     <Compile Include="Expressions\Token.cs" />
     <Compile Include="Expressions\Variable.cs" />
     <Compile Include="Extensibility\Extensions.cs" />
+    <Compile Include="Extensibility\Settings\ISettingsContributor.cs" />
     <Compile Include="UI\IWiFoContext.cs" />
     <Compile Include="UI\IWiFoCanvas.cs" />
-    <Compile Include="Extensibility\Settings\Settings.cs" />
+    <Compile Include="Extensibility\Settings\ISettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\UserInput.cs" />
     <Compile Include="UI\UserOutput.cs" />

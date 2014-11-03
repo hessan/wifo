@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using WiFo.Data;
 using WiFo.Extensibility;
@@ -154,7 +153,7 @@ namespace WiFoBase
 				tinfo.BurstSize = 1;
 
 			UserOutput
-				.For(UserOutputTypes.Results)
+				.For(UserOutputType.Results)
 				.SetTitle("Traffic Results")
 				.SetResults(tinfo)
 				.Execute(wifo);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace WiFo.Data
 {
@@ -19,8 +20,9 @@ namespace WiFo.Data
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether the channel is free according to the State value.
+		/// Determines whether the channel is free according to the State value.
 		/// </summary>
+		[Description("Determines whether the channel is free.")]
 		public bool IsChannelFree
 		{
 			get
@@ -32,6 +34,7 @@ namespace WiFo.Data
 		/// <summary>
 		/// Gets the state value (taken from the hardware status register) associated with this record.
 		/// </summary>
+		[Description("Gets the state value associated with this record.")]
 		public uint State
 		{
 			get
@@ -43,6 +46,7 @@ namespace WiFo.Data
 		/// <summary>
 		/// Gets the timestamp associated with this record.
 		/// </summary>
+		[Description("Gets the timestamp associated with this record.")]
 		public uint Time
 		{
 			get

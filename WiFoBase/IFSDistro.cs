@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Threading.Tasks;
 using WiFo.Data;
 using WiFo.Extensibility;
 using WiFo.Extensibility.Settings;
@@ -87,7 +85,7 @@ namespace WiFoBase
 				xs[i] = i + minBin;
 
 			UserOutput
-				.For(UserOutputTypes.BarPlot)
+				.For(UserOutputType.BarPlot)
 				.SetTitle(String.Format("IFS Distribution ({0} frames)", data.Count))
 				.SetXValues(xs)
 				.SetYValues(ret)

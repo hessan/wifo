@@ -66,6 +66,8 @@ namespace WiFoUI.UI.Components
 		{
 			base.OnPaint(e);
 
+			e.Graphics.FillRectangle(Brushes.White, e.Graphics.ClipBounds);
+
 			if (view != null)
 			{
 				g = e.Graphics;

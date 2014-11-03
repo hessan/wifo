@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Text;
-using System.Threading.Tasks;
 using WiFo.Extensibility;
 using WiFo.UI;
 using IronPython.Runtime;
@@ -18,7 +16,7 @@ namespace WiFoUI.Logic
 		public void message(string message)
 		{
 			UserOutput
-				.For(UserOutputTypes.Message)
+				.For(UserOutputType.Message)
 				.SetTitle(extension.DisplayName)
 				.SetMessage(message)
 				.Execute(context);
@@ -27,7 +25,7 @@ namespace WiFoUI.Logic
 		public void warning(string message)
 		{
 			UserOutput
-				.For(UserOutputTypes.Message)
+				.For(UserOutputType.Message)
 				.SetTitle(extension.DisplayName)
 				.SetMessage(message)
 				.SetWarning(true)
@@ -37,7 +35,7 @@ namespace WiFoUI.Logic
 		public void dictbox(PythonDictionary dict)
 		{
 			UserOutput
-				.For(UserOutputTypes.Results)
+				.For(UserOutputType.Results)
 				.SetTitle(extension.DisplayName + " - Results")
 				.SetResults(new DictPropertyGridAdapter(dict))
 				.Execute(context);
@@ -56,7 +54,7 @@ namespace WiFoUI.Logic
 				yvals[i++] = (double)y;
 
 			UserOutput
-				.For(UserOutputTypes.BarPlot)
+				.For(UserOutputType.BarPlot)
 				.SetTitle(title)
 				.SetXValues(xvals)
 				.SetYValues(yvals)
@@ -66,7 +64,7 @@ namespace WiFoUI.Logic
 		public bool confirm(string message)
 		{
 			return (bool)UserInput
-				.For(UserInputTypes.Boolean)
+				.For(UserInputType.Boolean)
 				.SetTitle(extension.DisplayName)
 				.SetMessage(message)
 				.Execute(context);
@@ -75,7 +73,7 @@ namespace WiFoUI.Logic
 		public string ask(string message)
 		{
 			return (string)UserInput
-				.For(UserInputTypes.String)
+				.For(UserInputType.String)
 				.SetTitle(extension.DisplayName)
 				.SetMessage(message)
 				.Execute(context);
@@ -84,7 +82,7 @@ namespace WiFoUI.Logic
 		public int? askint(string message)
 		{
 			return (int?)UserInput
-				.For(UserInputTypes.Integer)
+				.For(UserInputType.Integer)
 				.SetTitle(extension.DisplayName)
 				.SetMessage(message)
 				.Execute(context);
@@ -93,7 +91,7 @@ namespace WiFoUI.Logic
 		public string askfile(string title)
 		{
 			return (string)UserInput
-				.For(UserInputTypes.FileName)
+				.For(UserInputType.FileName)
 				.SetTitle(title)
 				.SetFilter("All files (*.*) | *.*")
 				.Execute(context);

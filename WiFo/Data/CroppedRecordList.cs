@@ -49,6 +49,9 @@ namespace WiFo.Data
 
 		public override void Clear() { }
 
+		/// <summary>
+		/// Gets the number of elements in the cropped range.
+		/// </summary>
 		public override int Count
 		{
 			get

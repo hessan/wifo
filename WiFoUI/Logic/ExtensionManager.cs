@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using WiFo.Extensibility;
 
 namespace WiFoUI.Logic
@@ -75,11 +72,9 @@ namespace WiFoUI.Logic
 
 			foreach (FileInfo extFile in extFiles)
 			{
-				IExtension study;
-
 				try
 				{
-					study = new PythonStudy(extFile.FullName);
+					IExtension study = new PythonStudy(extFile.FullName);
 					lExtensions.Add(study);
 				}
 				catch (Exception ex) {

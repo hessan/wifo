@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WiFo.Expressions
+﻿namespace WiFo.Expressions
 {
 	internal class Token
 	{
@@ -34,7 +32,7 @@ namespace WiFo.Expressions
 			}
 		}
 
-		public static Token Read(String source, int startIndex, out int currentIndex)
+		public static Token Read(string source, int startIndex, out int currentIndex)
 		{
 			for (int i = startIndex; i < source.Length; i++)
 			{
