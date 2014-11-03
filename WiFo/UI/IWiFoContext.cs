@@ -5,7 +5,7 @@ namespace WiFo.UI
 {
 	public interface IWiFoContext
 	{
-		object Execute(UserInput input);
+		dynamic Execute(UserInput input);
 		void Execute(UserOutput output);
 	}
 }

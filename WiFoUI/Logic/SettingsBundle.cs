@@ -30,72 +30,14 @@ namespace WiFoUI.Logic
 			data.Clear();
 		}
 
-		public int GetInt(string key, int defaultValue = default(int))
+		public T Get<T>(string key, T defaultValue = default(T))
 		{
 			try
 			{
 				object obj = data[prefix + key];
 
-				if (obj is int)
-					return (int)obj;
-			}
-			catch { }
-
-			return defaultValue;
-		}
-
-		public long GetLong(string key, long defaultValue = default(long))
-		{
-			try
-			{
-				object obj = data[prefix + key];
-
-				if (obj is long)
-					return (long)obj;
-			}
-			catch { }
-
-			return defaultValue;
-		}
-
-		public float GetFloat(string key, float defaultValue = default(float))
-		{
-			try
-			{
-				object obj = data[prefix + key];
-
-				if (obj is float)
-					return (float)obj;
-				else return defaultValue;
-			}
-			catch { }
-
-			return defaultValue;
-		}
-
-		public double GetDouble(string key, double defaultValue = default(double))
-		{
-			try
-			{
-				object obj = data[prefix + key];
-
-				if (obj is double)
-					return (double)obj;
-				else return defaultValue;
-			}
-			catch { }
-
-			return defaultValue;
-		}
-
-		public string GetString(string key, string defaultValue = default(string))
-		{
-			try
-			{
-				object obj = data[prefix + key];
-
-				if (obj is string)
-					return (string)obj;
+				if (obj is T)
+					return (T)obj;
 			}
 			catch { }
 

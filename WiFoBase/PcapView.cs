@@ -109,7 +109,7 @@ namespace WiFoBase
 
 		public void Load(ISettings settings)
 		{
-			apMACAddr = settings.GetString("APMAC", "0014a46d08d0");
+			apMACAddr = settings.Get<string>("APMAC", "0014a46d08d0");
 		}
 
 		public void Save(ISettings settings)

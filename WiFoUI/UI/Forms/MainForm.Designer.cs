@@ -100,38 +100,38 @@
 			// 
 			this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
 			this.connectToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-			this.connectToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+			this.connectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.connectToolStripMenuItem.Text = "&Connect";
 			this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
 			// 
 			// sep1
 			// 
 			this.sep1.Name = "sep1";
-			this.sep1.Size = new System.Drawing.Size(135, 6);
+			this.sep1.Size = new System.Drawing.Size(149, 6);
 			// 
 			// exportDataToolStripMenuItem
 			// 
 			this.exportDataToolStripMenuItem.Name = "exportDataToolStripMenuItem";
-			this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+			this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.exportDataToolStripMenuItem.Text = "&Export Data";
 			// 
 			// importDataToolStripMenuItem
 			// 
 			this.importDataToolStripMenuItem.Name = "importDataToolStripMenuItem";
-			this.importDataToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+			this.importDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.importDataToolStripMenuItem.Text = "&Import Data";
 			this.importDataToolStripMenuItem.Click += new System.EventHandler(this.importDataToolStripMenuItem_Click);
 			// 
 			// sep2
 			// 
 			this.sep2.Name = "sep2";
-			this.sep2.Size = new System.Drawing.Size(135, 6);
+			this.sep2.Size = new System.Drawing.Size(149, 6);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
 			this.exitToolStripMenuItem.ShortcutKeyDisplayString = "Alt+F4";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.exitToolStripMenuItem.Text = "E&xit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
@@ -155,14 +155,14 @@
 			this.timelineToolStripMenuItem.Checked = true;
 			this.timelineToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.timelineToolStripMenuItem.Name = "timelineToolStripMenuItem";
-			this.timelineToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.timelineToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
 			this.timelineToolStripMenuItem.Text = "&Timeline";
 			this.timelineToolStripMenuItem.Click += new System.EventHandler(this.view_Click);
 			// 
 			// sepView
 			// 
 			this.sepView.Name = "sepView";
-			this.sepView.Size = new System.Drawing.Size(149, 6);
+			this.sepView.Size = new System.Drawing.Size(117, 6);
 			this.sepView.Visible = false;
 			// 
 			// toolsToolStripMenuItem
@@ -202,35 +202,35 @@
 			// itmTicks1
 			// 
 			this.itmTicks1.Name = "itmTicks1";
-			this.itmTicks1.Size = new System.Drawing.Size(152, 22);
+			this.itmTicks1.Size = new System.Drawing.Size(80, 22);
 			this.itmTicks1.Text = "1";
 			this.itmTicks1.Click += new System.EventHandler(this.itmTicks_Click);
 			// 
 			// itmTicks2
 			// 
 			this.itmTicks2.Name = "itmTicks2";
-			this.itmTicks2.Size = new System.Drawing.Size(152, 22);
+			this.itmTicks2.Size = new System.Drawing.Size(80, 22);
 			this.itmTicks2.Text = "2";
 			this.itmTicks2.Click += new System.EventHandler(this.itmTicks_Click);
 			// 
 			// itmTicks3
 			// 
 			this.itmTicks3.Name = "itmTicks3";
-			this.itmTicks3.Size = new System.Drawing.Size(152, 22);
+			this.itmTicks3.Size = new System.Drawing.Size(80, 22);
 			this.itmTicks3.Text = "3";
 			this.itmTicks3.Click += new System.EventHandler(this.itmTicks_Click);
 			// 
 			// itmTicks4
 			// 
 			this.itmTicks4.Name = "itmTicks4";
-			this.itmTicks4.Size = new System.Drawing.Size(152, 22);
+			this.itmTicks4.Size = new System.Drawing.Size(80, 22);
 			this.itmTicks4.Text = "4";
 			this.itmTicks4.Click += new System.EventHandler(this.itmTicks_Click);
 			// 
 			// itmTicks5
 			// 
 			this.itmTicks5.Name = "itmTicks5";
-			this.itmTicks5.Size = new System.Drawing.Size(152, 22);
+			this.itmTicks5.Size = new System.Drawing.Size(80, 22);
 			this.itmTicks5.Text = "5";
 			this.itmTicks5.Click += new System.EventHandler(this.itmTicks_Click);
 			// 

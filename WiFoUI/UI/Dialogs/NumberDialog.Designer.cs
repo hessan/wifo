@@ -101,7 +101,6 @@
 			this.Name = "NumberDialog";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "NumberForm";
-			this.Load += new System.EventHandler(this.NumberDialog_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

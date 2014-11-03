@@ -67,11 +67,27 @@ namespace WiFoUI.Logic
 							lExtensions.Add(ext);
 						}
 					}
-
-					extensions = lExtensions.ToArray();
 				}
 				catch { }
 			}
+
+			extFiles = dir.GetFiles("*.py");
+
+			foreach (FileInfo extFile in extFiles)
+			{
+				IExtension study;
+
+				try
+				{
+					study = new PythonStudy(extFile.FullName);
+					lExtensions.Add(study);
+				}
+				catch (Exception ex) {
+					System.Diagnostics.Debug.WriteLine(ex.Message);
+				}
+			}
+
+			extensions = lExtensions.ToArray();
 		}
 
 		private static IExtension[] extensions;

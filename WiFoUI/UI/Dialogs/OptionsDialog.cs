@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WiFo.Extensibility;
 using WiFo.Extensibility.Settings;
@@ -46,6 +39,9 @@ namespace WiFoUI.UI.Dialogs
 
 			txtAddress.Text = SettingsManager.Default.ServerAddress;
 			txtPort.Text = SettingsManager.Default.ServerPort.ToString();
+
+			string path = SettingsManager.Default.PythonLibraryPath;
+			btnLibPath.Text = path == null ? "(Not specified)" : path;
 		}
 
 		private void lstExtensions_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,6 +69,20 @@ namespace WiFoUI.UI.Dialogs
 				if (port > 0)
 					SettingsManager.Default.ServerPort = port;
 				else txtPort.Text = "1";
+			}
+		}
+
+		private void btnLibPath_Click(object sender, EventArgs e)
+		{
+			if (SettingsManager.Default.PythonLibraryPath != null)
+				FBD.SelectedPath = SettingsManager.Default.PythonLibraryPath;
+
+			if (FBD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				SettingsManager.Default.PythonLibraryPath = FBD.SelectedPath;
+				btnLibPath.Text = FBD.SelectedPath;
+
+				MessageBox.Show("This will take effect the next time you run the application.", "WiFo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 		}
 	}

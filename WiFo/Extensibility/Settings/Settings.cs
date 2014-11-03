@@ -8,11 +8,7 @@
 		void Put(string key, double value);
 		void Put(string key, string value);
 
-		int GetInt(string key, int defaultValue = default(int));
-		long GetLong(string key, long defaultValue = default(long));
-		float GetFloat(string key, float defaultValue = default(float));
-		double GetDouble(string key, double defaultValue = default(double));
-		string GetString(string key, string defaultValue = default(string));
+		T Get<T>(string key, T defaultValue = default(T));
 	}
 
 	public interface ISettingsContributor

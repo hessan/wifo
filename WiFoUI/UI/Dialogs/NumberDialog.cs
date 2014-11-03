@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WiFoUI.UI.Dialogs
@@ -56,11 +49,6 @@ namespace WiFoUI.UI.Dialogs
 				else DialogResult = System.Windows.Forms.DialogResult.OK;
 			}
 			else lblError.Visible = true;
-		}
-
-		private void NumberDialog_Load(object sender, EventArgs e)
-		{
-
 		}
 
 		private void txtValue_TextChanged(object sender, EventArgs e)

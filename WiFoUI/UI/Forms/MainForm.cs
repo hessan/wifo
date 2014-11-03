@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using WiFo.Data;
 using WiFo.Extensibility;
@@ -20,63 +14,81 @@ namespace WiFoUI.UI.Forms
 {
 	public partial class MainForm : Form, IWiFoContext
 	{
-		public object Execute(UserInput input)
+		class ExecutionResult
 		{
-			switch (input.InputType)
+			public dynamic obj;
+		}
+
+		public dynamic Execute(UserInput input)
+		{
+			ExecutionResult result = new ExecutionResult();
+			result.obj = null;
+
+			this.Invoke(new MethodInvoker(delegate
 			{
-				case UserInputTypes.Boolean:
-					return MessageBox.Show(
-						input.Message,
-						input.Title,
-						MessageBoxButtons.OKCancel) == DialogResult.OK;
-				case UserInputTypes.Integer:
-					return NumberDialog.Show(
-						input.Title,
-						input.DefaultIntValue,
-						input.Minimum,
-						input.Maximum,
-						input.Message == null ? String.Empty : input.Message);
-				case UserInputTypes.String:
-					return InputDialog.Show(
-						input.Title,
-						input.Message,
-						input.DefaultValue);
-				case UserInputTypes.FileName:
-					OFD.Title = input.Title;
-					OFD.Filter = input.Filter;
-					OFD.FileName = "";
+				switch (input.InputType)
+				{
+					case UserInputTypes.Boolean:
+						result.obj = MessageBox.Show(
+							input.Message,
+							input.Title,
+							MessageBoxButtons.OKCancel) == DialogResult.OK;
+						break;
+					case UserInputTypes.Integer:
+						result.obj = NumberDialog.Show(
+							input.Title,
+							input.DefaultIntValue,
+							input.Minimum,
+							input.Maximum,
+							input.Message == null ? String.Empty : input.Message);
+						break;
+					case UserInputTypes.String:
+						result.obj = InputDialog.Show(
+							input.Title,
+							input.Message,
+							input.DefaultValue);
+						break;
+					case UserInputTypes.FileName:
+						OFD.Title = input.Title;
+						OFD.Filter = input.Filter;
+						OFD.FileName = "";
 
-					if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-						return OFD.FileName;
-					else return null;
-			}
+						if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+							result.obj = OFD.FileName;
+						else result.obj = null;
+						break;
+				}
+			}), result);
 
-			return null;
+			return result.obj;
 		}
 
 		public void Execute(UserOutput output)
 		{
-			switch (output.OutputType)
+			this.BeginInvoke(new MethodInvoker(delegate
 			{
-				case UserOutputTypes.BarPlot:
-					ChartForm form = new ChartForm();
-					form.Text = output.Title;
-					form.InitializeChart(output.XValues, output.YValues);
-					form.Show();
-					break;
-				case UserOutputTypes.Message:
-					MessageBox.Show(
-						output.Message,
-						output.Title,
-						MessageBoxButtons.OK,
-						output.IsWarning ? MessageBoxIcon.Warning : MessageBoxIcon.None);
-					break;
-				case UserOutputTypes.Results:
-					PropertiesForm props = new PropertiesForm(output.Results);
-					props.Text = output.Title;
-					props.Show();
-					break;
-			}
+				switch (output.OutputType)
+				{
+					case UserOutputTypes.BarPlot:
+						ChartForm form = new ChartForm();
+						form.Text = output.Title;
+						form.InitializeChart(output.XValues, output.YValues);
+						form.Show();
+						break;
+					case UserOutputTypes.Message:
+						MessageBox.Show(
+							output.Message,
+							output.Title,
+							MessageBoxButtons.OK,
+							output.IsWarning ? MessageBoxIcon.Warning : MessageBoxIcon.None);
+						break;
+					case UserOutputTypes.Results:
+						PropertiesForm props = new PropertiesForm(output.Results);
+						props.Text = output.Title;
+						props.Show();
+						break;
+				}
+			}));
 		}
 
 		public MainForm()
@@ -99,6 +111,7 @@ namespace WiFoUI.UI.Forms
 		{
 			client.Connected += new EventHandler(client_Connected);
 			client.Disconnected += new EventHandler(client_Disconnected);
+			SettingsManager.Default.Load();
 			ExtensionManager.LoadExtensions();
 			PopulateStudies();
 			PopulateTimelineViews();
@@ -151,7 +164,11 @@ namespace WiFoUI.UI.Forms
 		private void study_Click(object sender, EventArgs e)
 		{
 			IStudy ext = (IStudy)((ToolStripMenuItem)sender).Tag;
-			timelineChart.Timeline.PerformStudy(ext, (uint)timelineChart.MarkerStart, (uint)timelineChart.MarkerEnd, this);
+
+			new Thread(new ThreadStart(delegate
+			{
+				timelineChart.Timeline.PerformStudy(ext, (uint)timelineChart.MarkerStart, (uint)timelineChart.MarkerEnd, this);
+			})).Start();
 		}
 
 		private void view_Click(object sender, EventArgs e)
@@ -215,7 +232,7 @@ namespace WiFoUI.UI.Forms
 
 			if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
-				StreamReader reader = new StreamReader(OFD.FileName);
+				System.IO.StreamReader reader = new System.IO.StreamReader(OFD.FileName);
 				RecordList records = timelineChart.Timeline.Records;
 				string l = reader.ReadLine();
 
@@ -337,6 +354,5 @@ namespace WiFoUI.UI.Forms
 		}
 
 		private Client client = new Client("10.220.10.69", 1363);
-
 	}
 }

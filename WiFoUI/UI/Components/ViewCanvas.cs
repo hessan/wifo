@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WiFo.Data;
 using WiFo.Extensibility;
 using WiFo.UI;
@@ -65,7 +62,7 @@ namespace WiFoUI.UI.Components
 			return (int)timeline.Records.FirstRecord.Time;
 		}
 
-		protected override void OnPaint(PaintEventArgs e)
+		protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
 		{
 			base.OnPaint(e);
 

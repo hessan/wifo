@@ -51,6 +51,25 @@ namespace WiFoUI.Logic
 			}
 		}
 
+		public string PythonLibraryPath
+		{
+			get
+			{
+				return pythonLibPath;
+			}
+			set
+			{
+				if (value != null)
+					if (!Directory.Exists(value))
+					{
+						pythonLibPath = null;
+						return;
+					}
+
+				pythonLibPath = value;
+			}
+		}
+
 		public void Load()
 		{
 			if (File.Exists(settingsPath))
@@ -58,16 +77,18 @@ namespace WiFoUI.Logic
 				SettingsBundle bundle = new SettingsBundle(settingsPath);
 				bundle.Load();
 
-				foreach (IExtension ext in ExtensionManager.All)
-					if (ext is ISettingsContributor)
-					{
-						bundle.prefix = ext.GetType().Name + "_";
-						((ISettingsContributor)ext).Load(bundle);
-					}
+				if(ExtensionManager.All != null)
+					foreach (IExtension ext in ExtensionManager.All)
+						if (ext is ISettingsContributor)
+						{
+							bundle.prefix = ext.GetType().Name + "_";
+							((ISettingsContributor)ext).Load(bundle);
+						}
 
 				bundle.prefix = "wifo_";
-				serverAddress = bundle.GetString("ServerAddr");
-				serverPort = bundle.GetInt("ServerPort");
+				serverAddress = bundle.Get<string>("ServerAddr");
+				serverPort = bundle.Get<int>("ServerPort");
+				pythonLibPath = bundle.Get<string>("PythonLibPath");
 				bundle.Dispose();
 			}
 		}
@@ -86,6 +107,7 @@ namespace WiFoUI.Logic
 			bundle.prefix = "wifo_";
 			bundle.Put("ServerAddr", serverAddress);
 			bundle.Put("ServerPort", serverPort);
+			bundle.Put("PythonLibPath", pythonLibPath);
 			bundle.Save();
 			bundle.Dispose();
 		}
@@ -96,6 +118,7 @@ namespace WiFoUI.Logic
 		}
 
 		private string settingsPath;
+		private string pythonLibPath = null;
 		private string serverAddress = "10.220.10.69";
 		private int serverPort = 1363;
 

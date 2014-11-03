@@ -96,7 +96,7 @@ namespace WiFoBase
 
 		public void Load(ISettings settings)
 		{
-			binSize = settings.GetInt("BinSize", 20);
+			binSize = settings.Get<int>("BinSize", 20);
 		}
 
 		public void Save(ISettings settings)
