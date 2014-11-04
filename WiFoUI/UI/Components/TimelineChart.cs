@@ -13,7 +13,6 @@ namespace WiFoUI.UI.Components
 		{
 			timeline = null;
 			rightCX = 1000;
-			DoubleBuffered = true;
 		}
 
 		public TimelineChart(IContainer container)
@@ -80,6 +79,7 @@ namespace WiFoUI.UI.Components
 
 			Graphics g = e.Graphics;
 			Rectangle rect = ChartBounds;
+			Font numberFont = fonts[0];
 
 			g.FillRectangle(Brushes.White, 0, 0, Width, Height);
 			

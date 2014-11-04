@@ -8,7 +8,7 @@
 	public class Variable<T>
 	{
 		/// <summary>
-		/// Initializes a new instance of <see cref="Variable"/> with the specified name and value.
+		/// Initializes a new instance of <see cref="T:Variable"/> with the specified name and value.
 		/// </summary>
 		/// <param name="name">The name of the variable.</param>
 		/// <param name="value">The value of the variable.</param>

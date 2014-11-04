@@ -50,8 +50,8 @@ namespace WiFoBase
 
 		public void Draw(RecordTimeline timeline, uint startTime, uint endTime, IWiFoCanvas g)
 		{
-			int startIndex = GetIndexBefore(startTime), endIndex = GetIndexBefore(endTime);
-
+			int startIndex = GetIndexBefore(startTime), endIndex = GetIndexAfter(endTime);
+			
 			for (int i = startIndex; i < endIndex; i++)
 			{
 				PcapRecord record = records[i];
@@ -62,7 +62,7 @@ namespace WiFoBase
 				else if (record.Type == FrameTypes.Management)
 					c = cMgmt;
 
-				g.DrawShade(c, record.Time, record.Time + record.Duration);
+				g.FillRect(c, record.Time, g.Height - 100, record.Duration, 50);
 			}
 		}
 
@@ -221,8 +221,11 @@ namespace WiFoBase
 		private List<PcapRecord> records = new List<PcapRecord>();
 		private string apMACAddr;
 
-		private static readonly Color cData = Color.FromArgb(100, 255, 0, 0);
-		private static readonly Color cCtrl = Color.FromArgb(100, 0, 255, 0);
-		private static readonly Color cMgmt = Color.FromArgb(100, 0, 100, 0);
+		private static readonly Color cData = Color.FromArgb(100, 255, 0, 200);
+		private static readonly Color cCtrl = Color.FromArgb(100, 0, 255, 200);
+		private static readonly Color cMgmt = Color.FromArgb(100, 0, 100, 200);
+		private static readonly Color cDataBG = Color.FromArgb(100, 255, 0, 100);
+		private static readonly Color cCtrlBG = Color.FromArgb(100, 0, 255, 100);
+		private static readonly Color cMgmtBG = Color.FromArgb(100, 0, 100, 100);
 	}
 }

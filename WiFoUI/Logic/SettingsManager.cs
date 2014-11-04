@@ -13,13 +13,11 @@ namespace WiFoUI.Logic
 		{
 			get
 			{
+				if(instance == null)
+					instance = new SettingsManager(new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName + "\\settings.dat");
+
 				return instance;
 			}
-		}
-
-		public SettingsManager(string settingsFile)
-		{
-			settingsPath = settingsFile;
 		}
 
 		public string ServerAddress
@@ -74,8 +72,8 @@ namespace WiFoUI.Logic
 				SettingsBundle bundle = new SettingsBundle(settingsPath);
 				bundle.Load();
 
-				if(ExtensionManager.All != null)
-					foreach (IExtension ext in ExtensionManager.All)
+				if (ExtensionManager.Default.All != null)
+					foreach (IExtension ext in ExtensionManager.Default.All)
 						if (ext is ISettingsContributor)
 						{
 							bundle.prefix = ext.GetType().Name + "_";
@@ -94,7 +92,7 @@ namespace WiFoUI.Logic
 		{
 			SettingsBundle bundle = new SettingsBundle(settingsPath);
 
-			foreach (IExtension ext in ExtensionManager.All)
+			foreach (IExtension ext in ExtensionManager.Default.All)
 				if (ext is ISettingsContributor)
 				{
 					bundle.prefix = ext.GetType().Name + "_";
@@ -109,16 +107,15 @@ namespace WiFoUI.Logic
 			bundle.Dispose();
 		}
 
-		static SettingsManager()
+		private SettingsManager(string settingsFile)
 		{
-			instance = new SettingsManager(new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName + "\\settings.dat");
+			settingsPath = settingsFile;
 		}
 
 		private string settingsPath;
 		private string pythonLibPath = null;
 		private string serverAddress = "10.220.10.69";
 		private int serverPort = 1363;
-
 		private static SettingsManager instance;
 	}
 }

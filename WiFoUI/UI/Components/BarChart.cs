@@ -6,15 +6,11 @@ namespace WiFoUI.UI.Components
 {
 	public class BarChart : AbstractChart
 	{
-		public BarChart()
-		{
-			DoubleBuffered = true;
-		}
+		public BarChart() { }
 
 		public BarChart(IContainer container)
 		{
 			container.Add(this);
-			DoubleBuffered = true;
 		}
 
 		[Category("Data"), Description("Gets or sets the items in the bar plot.")]
@@ -97,6 +93,7 @@ namespace WiFoUI.UI.Components
 			
 			Graphics g = e.Graphics;
 			Rectangle rect = ChartBounds;
+			Font numberFont = fonts[0];
 
 			g.FillRectangle(Brushes.White, 0, 0, Width, Height);
 
@@ -155,7 +152,7 @@ namespace WiFoUI.UI.Components
 			}
 			catch (Exception ex)
 			{
-				g.DrawString(ex.Message, numberFont, Brushes.Black, 10, 10);
+				g.DrawString(ex.Message, fonts[0], Brushes.Black, 10, 10);
 			}
 
 			g.DrawRectangle(borderPen, rect);

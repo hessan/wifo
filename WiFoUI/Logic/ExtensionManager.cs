@@ -6,9 +6,20 @@ using WiFo.Extensibility;
 
 namespace WiFoUI.Logic
 {
-	class ExtensionManager
+	public class ExtensionManager : IComparer<IExtension>
 	{
-		public static IExtension[] All
+		public static ExtensionManager Default
+		{
+			get
+			{
+				if(instance == null)
+					instance = new ExtensionManager();
+
+				return instance;
+			}
+		}
+
+		public IExtension[] All
 		{
 			get
 			{
@@ -16,7 +27,7 @@ namespace WiFoUI.Logic
 			}
 		}
 
-		public static IStudy[] Studies
+		public IStudy[] Studies
 		{
 			get
 			{
@@ -30,7 +41,7 @@ namespace WiFoUI.Logic
 			}
 		}
 
-		public static ITimelineView[] TimelineViews
+		public ITimelineView[] TimelineViews
 		{
 			get
 			{
@@ -44,7 +55,7 @@ namespace WiFoUI.Logic
 			}
 		}
 
-		public static void LoadExtensions()
+		public void LoadExtensions()
 		{
 			DirectoryInfo dir = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.GetDirectories("ext")[0];
 			FileInfo[] extFiles = dir.GetFiles("*.wifo");
@@ -82,9 +93,20 @@ namespace WiFoUI.Logic
 				}
 			}
 
+			lExtensions.Sort(this);
 			extensions = lExtensions.ToArray();
 		}
 
-		private static IExtension[] extensions;
+		public int Compare(IExtension x, IExtension y)
+		{
+			return x.DisplayName.CompareTo(y.DisplayName);
+		}
+
+		private ExtensionManager() {
+			extensions = null;
+		}
+
+		private IExtension[] extensions;
+		private static ExtensionManager instance;
 	}
 }

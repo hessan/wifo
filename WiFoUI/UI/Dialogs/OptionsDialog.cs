@@ -30,7 +30,7 @@ namespace WiFoUI.UI.Dialogs
 
 		private void OptionsDialog_Load(object sender, EventArgs e)
 		{
-			foreach (IExtension ext in ExtensionManager.All)
+			foreach (IExtension ext in ExtensionManager.Default.All)
 				if (ext is ISettingsContributor)
 					lstExtensions.Items.Add(new ExtensionWrapper(ext));
 

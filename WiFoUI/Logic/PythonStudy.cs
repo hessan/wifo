@@ -110,7 +110,6 @@ namespace WiFoUI.Logic
 			return func.Invoke();
 		}
 
-		private bool pathAdded = false;
 		private static ScriptEngine py = null;
 		private ScriptScope scope, wifoModule;
 		private CompiledCode code;

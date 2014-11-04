@@ -112,7 +112,7 @@ namespace WiFoUI.UI.Forms
 			client.Connected += new EventHandler(client_Connected);
 			client.Disconnected += new EventHandler(client_Disconnected);
 			SettingsManager.Default.Load();
-			ExtensionManager.LoadExtensions();
+			ExtensionManager.Default.LoadExtensions();
 			PopulateStudies();
 			PopulateTimelineViews();
 			SettingsManager.Default.Load();
@@ -323,7 +323,7 @@ namespace WiFoUI.UI.Forms
 		{
 			int count = 0;
 
-			foreach (IStudy ext in ExtensionManager.Studies)
+			foreach (IStudy ext in ExtensionManager.Default.Studies)
 			{
 				ToolStripMenuItem item = new ToolStripMenuItem(ext.DisplayName);
 				item.Tag = ext;
@@ -340,7 +340,7 @@ namespace WiFoUI.UI.Forms
 		{
 			int count = 0;
 
-			foreach (ITimelineView ext in ExtensionManager.TimelineViews)
+			foreach (ITimelineView ext in ExtensionManager.Default.TimelineViews)
 			{
 				ToolStripMenuItem item = new ToolStripMenuItem(ext.DisplayName);
 				item.Tag = ext;

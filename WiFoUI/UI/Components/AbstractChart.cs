@@ -6,6 +6,11 @@ namespace WiFoUI.UI.Components
 {
 	public abstract class AbstractChart : System.Windows.Forms.Control
 	{
+		public AbstractChart()
+		{
+			DoubleBuffered = true;
+		}
+
 		[CategoryAttribute("Behavior"), DescriptionAttribute("Locks manual time navigation to always display the latest update.")]
 		public bool PanLock { get; set; }
 
@@ -201,7 +206,11 @@ namespace WiFoUI.UI.Components
 		protected readonly Pen gridPen = new Pen(Color.FromArgb(0x6c, 0x86, 0x96));
 		protected readonly Brush markerBrush = new SolidBrush(Color.FromArgb(100, 108, 194, 255));
 		protected readonly Brush markerTextBrush = new SolidBrush(Color.FromArgb(108, 194, 255));
-		protected readonly Font numberFont = new Font("Tahoma", 8, FontStyle.Regular, GraphicsUnit.Pixel);
+
+		protected readonly Font[] fonts = {
+			new Font("Tahoma", 8, FontStyle.Regular, GraphicsUnit.Pixel),
+			new Font("Tahoma", 8, FontStyle.Bold, GraphicsUnit.Pixel)
+		};
 
 		protected readonly Pen[] chartPens = {
 			new Pen(Color.Black),

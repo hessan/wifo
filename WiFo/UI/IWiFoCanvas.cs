@@ -3,6 +3,22 @@
 namespace WiFo.UI
 {
 	/// <summary>
+	/// Specifies constants defining which of WiFo's unified text styles to use.
+	/// </summary>
+	public enum TextStyle
+	{
+		/// <summary>
+		/// Regular-sized text with no decoration.
+		/// </summary>
+		NormalText = 0,
+
+		/// <summary>
+		/// Regular-sized bold text.
+		/// </summary>
+		BoldText,
+	}
+
+	/// <summary>
 	/// Defines a canvas that can be used for timeline oriented plotting of data.
 	/// </summary>
 	public interface IWiFoCanvas
@@ -18,7 +34,7 @@ namespace WiFo.UI
 		int Height { get; }
 
 		/// <summary>
-		/// Draws a straight line on the canvas.
+		/// Draws a straight line along the specified points.
 		/// </summary>
 		/// <param name="color">The color of the line.</param>
 		/// <param name="timestamp1">This first point's timestamp.</param>
@@ -28,29 +44,43 @@ namespace WiFo.UI
 		void DrawLine(Color color, uint timestamp1, int y1, uint timestamp2, int y2);
 
 		/// <summary>
-		/// Shades a whole area with the specified color.
+		/// Draws a rectangular stroke bounded by the specified timestamps and vertical bounds, with the specified color.
 		/// </summary>
-		/// <param name="color">The color of the shade.</param>
-		/// <param name="startTime">The start timestamp.</param>
-		/// <param name="endTime">The end timestamp.</param>
-		void DrawShade(Color color, uint startTime, uint endTime);
+		/// <param name="color">The fill color of the rectangle.</param>
+		/// <param name="timestamp">This first point's timestamp.</param>
+		/// <param name="y">The first point's y value, in pixels.</param>
+		/// <param name="duration">The duration covered by the rectangle.</param>
+		/// <param name="height">The height of the rectangle.</param>
+		void DrawRect(Color color, uint timestamp, int y, uint duration, int height);
+
+		/// <summary>
+		/// Fills a rectangle bounded by the specified timestamps and vertical bounds, with the specified color.
+		/// </summary>
+		/// <param name="color">The fill color of the rectangle.</param>
+		/// <param name="timestamp">This first point's timestamp.</param>
+		/// <param name="y">The first point's y value, in pixels.</param>
+		/// <param name="duration">The duration covered by the rectangle.</param>
+		/// <param name="height">The height of the rectangle.</param>
+		void FillRect(Color color, uint timestamp, int y, uint duration, int height);
 
 		/// <summary>
 		/// Draws a string on the given point on the canvas, independent of the current time.
 		/// </summary>
+		/// <param name="s">The string to be drawn.</param>
 		/// <param name="color">The color of the text.</param>
-		/// <param name="size">The font size to be used.</param>
+		/// <param name="style">The unified text style to use.</param>
 		/// <param name="x">The x value of the text's left-most point.</param>
 		/// <param name="y">The y value of the text's top-most point.</param>
-		void DrawStaticString(Color color, int size, int x, int y);
+		void DrawStaticString(string s, Color color, TextStyle style, int x, int y);
 
 		/// <summary>
 		/// Draws a text at a point in timeline.
 		/// </summary>
+		/// <param name="s">The string to be drawn.</param>
 		/// <param name="color">The color of the text.</param>
-		/// <param name="size">The font size to be used.</param>
+		/// <param name="style">The unified text style to use.</param>
 		/// <param name="startTime">The timestamp where the left-most point of the text resides.</param>
 		/// <param name="y">The y value of the text's top-most point.</param>
-		void DrawString(Color color, int size, uint startTime, int y);
+		void DrawString(string s, Color color, TextStyle style, uint startTime, int y);
 	}
 }

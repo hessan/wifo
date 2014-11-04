@@ -178,8 +178,8 @@ namespace WiFo.Data
 		}
 
 		/// <summary>
-		/// Finds the next record in the list where the masked value of the <see cref="State"/> property
-		/// is changed.
+		/// Finds the next record in the list where the masked value of the <see cref="Record.State"/> 
+		/// property changes.
 		/// </summary>
 		/// <param name="startIndex">The starting index.</param>
 		/// <param name="mask">The mask to be tracked.</param>
@@ -199,8 +199,8 @@ namespace WiFo.Data
 		}
 
 		/// <summary>
-		/// Searching backwards, finds the next record in the list where the masked value of the <see cref="State"/>
-		/// property is changed.
+		/// Searching backwards, finds the next record in the list where the masked value of the
+		/// <see cref="Record.State"/> property changes.
 		/// </summary>
 		/// <param name="startIndex">The starting index.</param>
 		/// <param name="mask">The mask to be tracked.</param>

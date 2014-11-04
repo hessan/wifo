@@ -122,7 +122,7 @@ namespace WiFo.Data
 		/// </remarks>
 		/// <param name="time">The timestamp.</param>
 		/// <returns>The effective state at the specified time.</returns>
-		/// <seealso cref="State" />
+		/// <seealso cref="Record.State" />
 		public uint GetStateAt(uint time)
 		{
 			return records[GetIndexBefore(time)].State;
