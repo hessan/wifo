@@ -12,9 +12,6 @@ namespace WiFoUI.Logic
 {
 	public class PythonStudy : IStudy
 	{
-		private FileInfo pythonFile;
-		private DateTime lastCompiled;
-
 		public PythonStudy(string fileName)
 		{
 			if(py == null)
@@ -41,12 +38,16 @@ namespace WiFoUI.Logic
 			wifoModule.SetVariable("askint", new Func<string, int?>(wifo.askint));
 			wifoModule.SetVariable("askfile", new Func<string, string>(wifo.askfile));
 
+			StreamReader reader = new StreamReader(Path.Combine(new FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).Directory.FullName, "ext", "__wifo__.py"));
+			string script = reader.ReadToEnd();
+			reader.Close();
+			py.Execute(script, wifoModule);
 			code.Execute(scope);
 		}
 
 		public void Perform(RecordList records, WiFo.UI.IWiFoContext context)
 		{
-			PythonTuple[] data = new PythonTuple[records.Count];
+			dynamic[] data = new dynamic[records.Count];
 
 			pythonFile.Refresh();
 
@@ -58,8 +59,13 @@ namespace WiFoUI.Logic
 
 			int i = 0;
 
+			ObjectOperations op = py.Operations;
+			var recordType = wifoModule.GetVariable("Record");
+
 			foreach (Record record in records)
-				data[i++] = new PythonTuple(new int[] { (int)record.Time, (int)record.State });
+			{
+				data[i++] = op.CreateInstance(recordType, record.Time, record.State);
+			}
 
 			wifo.SetContext(context);
 			wifoModule.SetVariable("data", data);
@@ -111,9 +117,10 @@ namespace WiFoUI.Logic
 		}
 
 		private static ScriptEngine py = null;
+		private FileInfo pythonFile;
+		private DateTime lastCompiled;
 		private ScriptScope scope, wifoModule;
 		private CompiledCode code;
 		private PythonWiFoContext wifo;
-
 	}
 }

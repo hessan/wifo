@@ -16,7 +16,7 @@ namespace WiFo.Data
 			: base(records.Count)
 		{
 
-			if (startIndex >= records.Count || endIndex >= records.Count)
+			if (startIndex >= records.Count || endIndex > records.Count)
 				throw new IndexOutOfRangeException();
 
 			if (startIndex > endIndex)

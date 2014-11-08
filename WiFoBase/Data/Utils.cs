@@ -54,35 +54,5 @@ namespace WiFoBase.Data
 			info = null;
 			return -1;
 		}
-
-		public static int NextChange(Record[] records, int startIndex, int mask)
-		{
-			if (startIndex < 0)
-				return -1;
-
-			int comp = (int)records[startIndex].State & mask;
-
-			for (int i = startIndex + 1; i < records.Length; i++)
-				if (comp != ((int)records[i].State & mask))
-					return i;
-
-			return -1;
-		}
-
-		public static int PrevChange(Record[] records, int startIndex, int mask)
-		{
-			if (startIndex < 0)
-				return -1;
-
-			int comp = (int)(records[startIndex].State & mask);
-
-			for (int i = startIndex - 1; i >= 0; i--)
-			{
-				if (comp != (int)(records[i].State & mask))
-					return i;
-			}
-
-			return -1;
-		}
 	}
 }

@@ -83,13 +83,17 @@ namespace WiFoUI.Logic
 
 			foreach (FileInfo extFile in extFiles)
 			{
-				try
+				if (!extFile.Name.StartsWith("__"))
 				{
-					IExtension study = new PythonStudy(extFile.FullName);
-					lExtensions.Add(study);
-				}
-				catch (Exception ex) {
-					System.Diagnostics.Debug.WriteLine(ex.Message);
+					try
+					{
+						IExtension study = new PythonStudy(extFile.FullName);
+						lExtensions.Add(study);
+					}
+					catch (Exception ex)
+					{
+						System.Diagnostics.Debug.WriteLine(ex.Message);
+					}
 				}
 			}
 

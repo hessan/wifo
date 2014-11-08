@@ -100,38 +100,40 @@
 			// 
 			this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
 			this.connectToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-			this.connectToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+			this.connectToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
 			this.connectToolStripMenuItem.Text = "&Connect";
 			this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
 			// 
 			// sep1
 			// 
 			this.sep1.Name = "sep1";
-			this.sep1.Size = new System.Drawing.Size(135, 6);
+			this.sep1.Size = new System.Drawing.Size(171, 6);
 			// 
 			// exportDataToolStripMenuItem
 			// 
 			this.exportDataToolStripMenuItem.Name = "exportDataToolStripMenuItem";
-			this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+			this.exportDataToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+			this.exportDataToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
 			this.exportDataToolStripMenuItem.Text = "&Export Data";
+			this.exportDataToolStripMenuItem.Click += new System.EventHandler(this.exportDataToolStripMenuItem_Click);
 			// 
 			// importDataToolStripMenuItem
 			// 
 			this.importDataToolStripMenuItem.Name = "importDataToolStripMenuItem";
-			this.importDataToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+			this.importDataToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
 			this.importDataToolStripMenuItem.Text = "&Import Data";
 			this.importDataToolStripMenuItem.Click += new System.EventHandler(this.importDataToolStripMenuItem_Click);
 			// 
 			// sep2
 			// 
 			this.sep2.Name = "sep2";
-			this.sep2.Size = new System.Drawing.Size(135, 6);
+			this.sep2.Size = new System.Drawing.Size(171, 6);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
 			this.exitToolStripMenuItem.ShortcutKeyDisplayString = "Alt+F4";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
 			this.exitToolStripMenuItem.Text = "E&xit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 

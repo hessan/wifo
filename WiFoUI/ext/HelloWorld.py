@@ -17,14 +17,14 @@ def perform():
   if not testnum:
     return
 
-  # Test 1: Display some numbers using propbox
+  # Test 1: Display some numbers using dictbox
   
   if testnum == 1:
     results = {}
     l = len(wifo.data)
     results['Record Count'] = l
-    results['Start Time'] = wifo.data[0][0]
-    results['End Time'] = wifo.data[l - 1][0]
+    results['Start Time'] = wifo.data[0].time
+    results['End Time'] = wifo.data[l - 1].time
     wifo.dictbox(results)
 
   # Test 2: Display a chart using barplot

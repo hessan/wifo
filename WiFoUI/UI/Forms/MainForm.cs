@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using WiFo.Data;
@@ -223,6 +224,23 @@ namespace WiFoUI.UI.Forms
 
 			lblStatus.ForeColor = Color.DarkGray;
 			connectToolStripMenuItem.Enabled = false;
+		}
+
+		private void exportDataToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (SFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				StreamWriter writer = new StreamWriter(SFD.FileName);
+				RecordList records = timelineChart.Timeline.Records;
+
+				for (int i = 0; i < records.Count; i++)
+				{
+					Record rec = records[i];
+					writer.WriteLine(rec.Time + "\t" + rec.State);
+				}
+
+				writer.Close();
+			}
 		}
 
 		private void importDataToolStripMenuItem_Click(object sender, EventArgs e)
